@@ -5,16 +5,18 @@
   "repository": {
     "url": "git://github.com/noffle/resync-srt.git"
   },
+  "bin": {
+    "resync-srt": "index.js"
+  },
   "main": "index.js",
   "scripts": {
-    "test": "tape test/*.js"
+    "test": "standard"
   },
   "dependencies": {
     "concat-stream": "^1.5.1",
     "subtitle": "0.0.9"
   },
   "devDependencies": {
-    "standard": "^5.4.1",
-    "tape": "*"
+    "standard": "^5.4.1"
   }
 }
