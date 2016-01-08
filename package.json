@@ -1,0 +1,20 @@
+{
+  "name": "resync-srt",
+  "description": "offset a SRT (SubRip) file's timestamps forward or backward",
+  "version": "0.0.0",
+  "repository": {
+    "url": "git://github.com/noffle/resync-srt.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "dependencies": {
+    "concat-stream": "^1.5.1",
+    "subtitle": "0.0.9"
+  },
+  "devDependencies": {
+    "standard": "^5.4.1",
+    "tape": "*"
+  }
+}
