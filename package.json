@@ -10,13 +10,14 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "standard"
+    "test": "standard && tape tests/*.js"
   },
   "dependencies": {
-    "concat-stream": "^1.5.1",
-    "subtitle": "0.0.9"
+    "subtitle": "0.0.9",
+    "through2": "^2.0.0"
   },
   "devDependencies": {
-    "standard": "^5.4.1"
+    "standard": "^5.4.1",
+    "tape": "^4.4.0"
   }
 }

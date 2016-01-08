@@ -1,39 +1,24 @@
 var SrtParser = require('subtitle')
-var concat = require('concat-stream')
-var fs = require('fs')
+var through = require('through2')
 
-function printUsage () {
-  console.error('USAGE: resync-srt [file] millisecond-offset')
+module.exports = function (msOffset) {
+  var data = []
+
+  function read (chunk, enc, cb) {
+    data.push(chunk)
+    // data += chunk.toString()
+    cb()
+  }
+
+  function flush (cb) {
+    data = Buffer.concat(data).toString()
+
+    var sub = new SrtParser()
+    sub.parse(data)
+    sub.resync(msOffset)
+    this.push(sub.stringfy().trim())
+    cb()
+  }
+
+  return through(read, flush)
 }
-
-if (process.argv.length < 3 || process.argv.length > 4) {
-  printUsage()
-  process.exit(1)
-}
-
-var stream = process.stdin
-var msArgIdx = 2
-
-if (process.argv.length === 4) {
-  stream = fs.createReadStream(process.argv[2])
-  msArgIdx = 3
-}
-
-// parse milliseconds arg
-var msOffset = parseInt(process.argv[msArgIdx], 10)
-if (isNaN(msOffset)) {
-  console.error('Invalid millisecond-offset value. Must be numeric.\n')
-  printUsage()
-  process.exit(1)
-}
-
-// read file + parse + resync + write to stdout
-stream.pipe(concat(function (data) {
-  var sub = new SrtParser()
-
-  sub.parse(data.toString())
-
-  sub.resync(msOffset)
-
-  process.stdout.write(sub.stringfy())
-}))
