@@ -6,7 +6,7 @@
     "url": "git://github.com/noffle/resync-srt.git"
   },
   "bin": {
-    "resync-srt": "index.js"
+    "resync-srt": "bin/cmd.js"
   },
   "main": "index.js",
   "scripts": {
