@@ -12,8 +12,9 @@
   "scripts": {
     "test": "standard && tape tests/*.js"
   },
+  "license": "MIT",
   "dependencies": {
-    "subtitle": "0.0.9",
+    "subtitle": "^0.1.1",
     "through2": "^2.0.0"
   },
   "devDependencies": {
