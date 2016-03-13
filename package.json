@@ -1,7 +1,7 @@
 {
   "name": "resync-srt",
   "description": "offset a SRT (SubRip) file's timestamps forward or backward",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "repository": {
     "url": "git://github.com/noffle/resync-srt.git"
   },
