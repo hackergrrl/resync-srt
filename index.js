@@ -16,7 +16,7 @@ module.exports = function (msOffset) {
     var sub = new SrtParser()
     sub.parse(data)
     sub.resync(msOffset)
-    this.push(sub.stringfy().trim())
+    this.push(sub.stringify().trim())
     cb()
   }
 
