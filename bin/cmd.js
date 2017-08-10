@@ -21,28 +21,15 @@ if (process.argv.length === 4) {
 }
 
 // parse offset arg
-var match = process.argv[msArgIdx].match(/^(\-?)(\d{2}):(\d{2}):(\d{2}),(\d{3})$/)
+var offset = process.argv[msArgIdx]
+var match = offset.match(/^(\-?)(\d{2}):(\d{2}):(\d{2}),(\d{3})$/)
 
-if (match) {
-  var negative = !!match[1]
-  var hours = parseInt(match[2], 10)
-  var minutes = parseInt(match[3], 10)
-  var seconds = parseInt(match[4], 10)
-  var milliseconds = parseInt(match[5], 10)
-
-  hours *= 3600000
-  minutes *= 60000
-  seconds *= 1000
-
-  msOffset = hours + minutes + seconds + milliseconds
-  msOffset *= (negative ? -1 : 1)
-} else {
-  var msOffset = parseInt(process.argv[msArgIdx], 10)
-  if (isNaN(msOffset)) {
-    console.error('Invalid offset value. Must be numeric or using the format hh:mm:ss,mmm.\n')
+if (!match) {
+  if (isNaN(parseInt(offset, 10))) {
+    console.error('Invalid offset value. Must be milliseconds (numeric) or hh:mm:ss,mmm.\n')
     printUsage()
     process.exit(1)
   }
 }
 
-stream.pipe(resync(msOffset)).pipe(process.stdout)
+stream.pipe(resync(offset)).pipe(process.stdout)
