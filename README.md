@@ -36,10 +36,16 @@ argument:
 $ resync-srt foo.srt -1000
 ```
 
+The SRT time format (HH:MM:SS,mmm) is also supported:
+
+```
+$ resync-srt foo.srt -00:00:01,000
+```
+
 ## usage
 
 ```
-resync-srt [FILE] MILLISECOND-OFFSET
+resync-srt [FILE] (HH:MM:SS,mmm | MILLISECOND-OFFSET)
 ```
 
 ## api
@@ -50,7 +56,8 @@ var resync = require('resync-srt')
 
 ### `resync(offsetMs)`
 
-`resync-srt` exports a single method, which accepts an offset in millseconds.
+`resync-srt` exports a single method, which accepts an offset in millseconds or
+in SRT time format (HH:MM:SS,mmm).
 Positive values push the timestamps forward in time, while negative values push
 them backward.
 
@@ -68,4 +75,3 @@ issue](https://github.com/noffle/resync-srt/issues/1).
 ## license
 
 MIT
-

@@ -4,7 +4,7 @@ var resync = require('../index')
 var fs = require('fs')
 
 function printUsage () {
-  console.error('USAGE: resync-srt [file] millisecond-offset')
+  console.error('USAGE: resync-srt [file] (hh:mm:ss,mmm | millisecond-offset)')
 }
 
 if (process.argv.length < 3 || process.argv.length > 4) {
@@ -20,12 +20,16 @@ if (process.argv.length === 4) {
   msArgIdx = 3
 }
 
-// parse milliseconds arg
-var msOffset = parseInt(process.argv[msArgIdx], 10)
-if (isNaN(msOffset)) {
-  console.error('Invalid millisecond-offset value. Must be numeric.\n')
-  printUsage()
-  process.exit(1)
+// parse offset arg
+var offset = process.argv[msArgIdx]
+var match = offset.match(/^(\-?)(\d{2}):(\d{2}):(\d{2}),(\d{3})$/)
+
+if (!match) {
+  if (isNaN(parseInt(offset, 10))) {
+    console.error('Invalid offset value. Must be milliseconds (numeric) or hh:mm:ss,mmm.\n')
+    printUsage()
+    process.exit(1)
+  }
 }
 
-stream.pipe(resync(msOffset)).pipe(process.stdout)
+stream.pipe(resync(offset)).pipe(process.stdout)
